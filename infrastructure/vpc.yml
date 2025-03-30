@@ -35,6 +35,17 @@ Resources:
         - Key: Name
           Value: TodoApp-Public-Subnet
 
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref TodoAppVPC
+      AvailabilityZone: !Select [1, !GetAZs '']
+      CidrBlock: 10.0.2.0/24
+      MapPublicIpOnLaunch: true
+      Tags:
+        - Key: Name
+          Value: TodoApp-Public-Subnet2
+
   PublicRouteTable:
     Type: AWS::EC2::RouteTable
     Properties:
@@ -57,6 +68,30 @@ Resources:
       SubnetId: !Ref PublicSubnet
       RouteTableId: !Ref PublicRouteTable
 
+  PublicSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref PublicSubnet2
+      RouteTableId: !Ref PublicRouteTable
+
+  ALBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Application Load Balancer
+      VpcId: !Ref TodoAppVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: TodoApp-ALB-SG
+
   ECSSecurityGroup:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -71,19 +106,47 @@ Resources:
           FromPort: 443
           ToPort: 443
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          SourceSecurityGroupId: !Ref ALBSecurityGroup
+      Tags:
+        - Key: Name
+          Value: TodoApp-ECS-SG
+
 Outputs:
   VpcId:
     Description: VPC ID
     Value: !Ref TodoAppVPC
     Export:
       Name: TodoAppVpcId
+
+  TodoAppVPC:
+    Description: VPC ID for Todo App
+    Value: !Ref TodoAppVPC
+    Export:
+      Name: TodoAppVPC
+
   PublicSubnet:
     Description: Public Subnet ID
     Value: !Ref PublicSubnet
     Export:
       Name: TodoAppPublicSubnet
+
+  PublicSubnet2:
+    Description: Second Public Subnet ID
+    Value: !Ref PublicSubnet2
+    Export:
+      Name: TodoAppPublicSubnet2
+
   ECSSecurityGroup:
     Description: ECS Security Group ID
     Value: !Ref ECSSecurityGroup
     Export:
       Name: TodoAppECSSecurityGroup
+
+  ALBSecurityGroup:
+    Description: ALB Security Group ID
+    Value: !Ref ALBSecurityGroup
+    Export:
+      Name: TodoAppALBSecurityGroup
