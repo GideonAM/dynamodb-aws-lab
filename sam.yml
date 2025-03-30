@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'SAM Template for a DynamoDB Table'
+
+Resources:
+  TodoTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: todo
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      Tags:
+        - Key: Application
+          Value: TodoApp
+
+Outputs:
+  TodoTableName:
+    Description: DynamoDB Table Name
+    Value: !Ref TodoTable
+    Export:
+      Name: TodoTableName
+  TodoTableArn:
+    Description: DynamoDB Table ARN
+    Value: !GetAtt TodoTable.Arn
+    Export:
+      Name: TodoTableArn
