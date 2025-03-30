@@ -6,11 +6,11 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.time.LocalDateTime;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 @DynamoDBTable(tableName = "todo")
 public class Todo {
     @DynamoDBHashKey
@@ -26,9 +26,4 @@ public class Todo {
     private String createdAt;
     @DynamoDBAttribute
     private String updatedAt;
-
-    public Todo() {
-        this.createdAt = LocalDateTime.now().toString();
-        this.updatedAt = LocalDateTime.now().toString();
-    }
 }
