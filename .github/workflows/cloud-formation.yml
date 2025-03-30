@@ -62,7 +62,7 @@ jobs:
       - name: Deploy ECS CloudFormation stack
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
-          name: tod-ecs-stack
+          name: todo-ecs-stack
           template: infrastructure/ecs.yml
           parameter-overrides: >-
             EnvironmentName=todo,
