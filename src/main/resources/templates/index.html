@@ -18,7 +18,7 @@
 </head>
 <body>
 <div class="container mt-5 todo-container">
-    <h1 class="text-center mb-4">Todo App</h1>
+    <h1 class="text-center mb-4">Dynamodb Todo App</h1>
 
     <div class="card mb-4">
         <div class="card-header">
@@ -59,7 +59,6 @@
     </div>
 </div>
 
-<!-- Todo Item Template -->
 <template id="todo-item-template">
     <li class="list-group-item d-flex justify-content-between align-items-center">
         <div class="form-check">
@@ -76,7 +75,6 @@
     </li>
 </template>
 
-<!-- Edit Todo Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -116,22 +114,18 @@
         let todos = [];
         let currentFilter = 'all';
 
-        // Get references to DOM elements
         const todoForm = document.getElementById('todo-form');
         const todoList = document.getElementById('todo-list');
         const emptyList = document.getElementById('empty-list');
         const editForm = document.getElementById('edit-form');
         const todoItemTemplate = document.getElementById('todo-item-template');
 
-        // Bootstrap modal instance
         const editModal = new bootstrap.Modal(document.getElementById('editModal'));
 
-        // Filter buttons
         document.getElementById('show-all').addEventListener('click', () => setFilter('all'));
         document.getElementById('show-active').addEventListener('click', () => setFilter('active'));
         document.getElementById('show-completed').addEventListener('click', () => setFilter('completed'));
 
-        // Form submit handler
         todoForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const title = document.getElementById('title').value;
@@ -139,11 +133,9 @@
 
             createTodo({ title, description, completed: false });
 
-            // Reset form
             todoForm.reset();
         });
 
-        // Save edit button
         document.getElementById('save-edit').addEventListener('click', function() {
             const id = document.getElementById('edit-id').value;
             const title = document.getElementById('edit-title').value;
@@ -154,7 +146,6 @@
             editModal.hide();
         });
 
-        // Load todos on page load
         fetchTodos();
 
         function fetchTodos() {
@@ -238,10 +229,8 @@
                     const editButton = todoItem.querySelector('.edit-todo');
                     const deleteButton = todoItem.querySelector('.delete-todo');
 
-                    // Set data attributes
                     listItem.dataset.id = todo.id;
 
-                    // Set content
                     titleSpan.textContent = todo.title;
                     descriptionP.textContent = todo.description || '';
                     checkbox.checked = todo.completed;
@@ -250,7 +239,6 @@
                         titleSpan.classList.add('completed');
                     }
 
-                    // Add event listeners
                     checkbox.addEventListener('change', function() {
                         updateTodo(todo.id, { ...todo, completed: this.checked });
                     });
@@ -275,7 +263,6 @@
         }
 
         function setFilter(filter) {
-            // Update active button
             document.getElementById('show-all').classList.remove('active');
             document.getElementById('show-active').classList.remove('active');
             document.getElementById('show-completed').classList.remove('active');
