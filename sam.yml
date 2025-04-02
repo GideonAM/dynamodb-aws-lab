@@ -9,7 +9,7 @@ Metadata:
     Author: YourName
     SpdxLicenseId: Apache-2.0
     LicenseUrl: LICENSE.txt
-    ReadmeUrl: README.md
+    ReadmeUrl: https://github.com/GideonAM/dynamodb-aws-lab/blob/main/README.md
     Labels: ['dynamodb', 'serverless']
     HomePageUrl: https://github.com/GideonAM/dynamodb-aws-lab
     SemanticVersion: 0.0.1
