@@ -6,13 +6,10 @@ Metadata:
   AWS::ServerlessRepo::Application:
     Name: todo-dynamodb-app
     Description: SAM Template for a DynamoDB Table
-    Author: YourName
+    Author: Gideon
     SpdxLicenseId: Apache-2.0
-    ReadmeUrl: https://github.com/GideonAM/dynamodb-aws-lab/blob/main/README.md
     Labels: ['dynamodb', 'serverless']
-    HomePageUrl: https://github.com/GideonAM/dynamodb-aws-lab
     SemanticVersion: 0.0.1
-    SourceCodeUrl: https://github.com/GideonAM/dynamodb-aws-lab
 
 Resources:
   TodoTable:
