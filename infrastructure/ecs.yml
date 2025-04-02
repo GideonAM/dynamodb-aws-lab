@@ -30,7 +30,7 @@ Parameters:
   DesiredContainerCount:
     Description: Desired number of containers
     Type: Number
-    Default: 1
+    Default: 2
 
 Resources:
   ECSCluster:
@@ -184,6 +184,7 @@ Resources:
             - Fn::ImportValue: !Sub "TodoAppECSSecurityGroup"
           Subnets:
             - Fn::ImportValue: !Sub "TodoAppPublicSubnet"
+            - Fn::ImportValue: !Sub "TodoAppPublicSubnet2"
 
   CodeDeployApplication:
     Type: AWS::CodeDeploy::Application
