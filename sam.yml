@@ -8,7 +8,6 @@ Metadata:
     Description: SAM Template for a DynamoDB Table
     Author: YourName
     SpdxLicenseId: Apache-2.0
-    LicenseUrl: LICENSE.txt
     ReadmeUrl: https://github.com/GideonAM/dynamodb-aws-lab/blob/main/README.md
     Labels: ['dynamodb', 'serverless']
     HomePageUrl: https://github.com/GideonAM/dynamodb-aws-lab
