@@ -35,6 +35,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          source-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: SAM Build
