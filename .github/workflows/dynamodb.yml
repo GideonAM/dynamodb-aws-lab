@@ -1,0 +1,50 @@
+name: Deploy SAM Application
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'sam.yml'
+      - '.github/workflows/dynamodb.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Deploy SAM Application
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Setup AWS SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: SAM Build
+        run: |
+          sam build --template-file sam.yml
+
+      - name: SAM Deploy
+        run: |
+          sam deploy --stack-name todo-dynamodb-stack \
+            --no-confirm-changeset \
+            --no-fail-on-empty-changeset \
+            --capabilities CAPABILITY_IAM \
+            --resolve-s3
