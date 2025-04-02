@@ -2,6 +2,19 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
 Description: 'SAM Template for a DynamoDB Table'
 
+Metadata:
+  AWS::ServerlessRepo::Application:
+    Name: todo-dynamodb-app
+    Description: SAM Template for a DynamoDB Table
+    Author: YourName
+    SpdxLicenseId: Apache-2.0
+    LicenseUrl: LICENSE.txt
+    ReadmeUrl: README.md
+    Labels: ['dynamodb', 'serverless']
+    HomePageUrl: https://github.com/GideonAM/dynamodb-aws-lab
+    SemanticVersion: 0.0.1
+    SourceCodeUrl: https://github.com/GideonAM/dynamodb-aws-lab
+
 Resources:
   TodoTable:
     Type: AWS::DynamoDB::Table
